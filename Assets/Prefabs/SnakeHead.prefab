@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &644119553115614160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899894969166462668}
+  m_Layer: 0
+  m_Name: SnakeHead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1899894969166462668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644119553115614160}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.033085227, y: 0.035718024, z: 0.3912399}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5905516690748855936}
+  - {fileID: 3230059308371848885}
+  m_Father: {fileID: 3476247306049270990}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948118718448982664
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,11 +60,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948118718448982664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.695}
+  m_LocalPosition: {x: -0.033085227, y: -0.035718024, z: 0.30376008}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3476247306049270990}
+  m_Father: {fileID: 1899894969166462668}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2158702994772098371
@@ -123,12 +156,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2714176691935948525}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.033085227, y: -0.035718024, z: -0.3912399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3476247306049270990}
+  m_Father: {fileID: 1899894969166462668}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5145873935470630098
@@ -203,9 +236,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3476247306049270990}
-  - component: {fileID: 3008353072455518712}
-  - component: {fileID: 9098101969680972962}
   - component: {fileID: 8314988294384521823}
+  - component: {fileID: 2317025811642376054}
+  - component: {fileID: 5235463362461133123}
+  - component: {fileID: 2683107914035853143}
   m_Layer: 0
   m_Name: SnakeHead
   m_TagString: Untagged
@@ -225,47 +259,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5905516690748855936}
-  - {fileID: 3230059308371848885}
+  - {fileID: 1899894969166462668}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3008353072455518712
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812417855827823072}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
---- !u!114 &9098101969680972962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7812417855827823072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da2fc5fba790b3d3b37fd3391f58caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  element: {fileID: 5905516690748855936}
-  moveSpeed: 5000
-  rotateMoveSpeed: 5000
-  groundDrag: 1
-  segmentHeight: 3
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &8314988294384521823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,4 +275,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a57f4970a81519965b12e4a58fef9a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  element: {fileID: 5905516690748855936}
+  transform: {fileID: 1899894969166462668}
+--- !u!54 &2317025811642376054
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812417855827823072}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5235463362461133123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812417855827823072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da2fc5fba790b3d3b37fd3391f58caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  segment: {fileID: 8314988294384521823}
+--- !u!114 &2683107914035853143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7812417855827823072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd514404efc9420cbd584f52d723aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
