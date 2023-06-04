@@ -23,15 +23,15 @@ public class Head: SegmentModel{
 
 public class Body: SegmentModel{
     public int mass{get;set;} = 10;
-    public float drag{get;private set;} = 0.3f;
+    public float drag{get;private set;} = 0.5f;
     public Body() : base() {
     }
 } 
 
 public class MovementProvider{
     public int moveSpeed{get;private set;} = 2000;
-    public int rotateMoveSpeed{get;private set;} = 5000;
-    public float dragOnMove{get;private set;} = 0.3f;
+    public int rotateMoveSpeed{get;private set;} = 6000;
+    public float dragOnMove{get;private set;} = 0.5f;
     public float dragOnStop{get;private set;} = 1.3f;
     public float height{get;private set;} = 10f;
 }

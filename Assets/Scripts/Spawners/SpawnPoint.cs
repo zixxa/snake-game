@@ -1,5 +1,4 @@
-using System.Xml.Serialization;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using CustomEventBus;
 using CustomEventBus.Signals;
@@ -7,31 +6,37 @@ using Random = System.Random;
 
 public class SpawnPoint: MonoBehaviour
 {
+    [SerializeField] private Transform beginSpawnPosition;
+    private int spawnPointNum;
+    private Vector3[] spawnZones;
     public SnakeModel snakeModel;
+    private Random _rand;
     private EventBus _eventBus;
-    [SerializeField] private Point _point;
-    private int _gameFieldScaleX{get;set;}
-    private int _gameFieldScaleZ{get;set;}
+    private Point _point;
     [SerializeField] private Point _pointPrefab;
-    [SerializeField] public Point GetPointPrefab() => Instantiate(_pointPrefab, GetPointPosition() ,Quaternion.identity);
-    private void Start(){
-        snakeModel = new SnakeModel();
-        _eventBus = ServiceLocator.Current.Get<EventBus>();
-        _eventBus.Subscribe<GetGameFieldScaleSignal>(OnGetGameFieldScale);
-        _eventBus.Subscribe<TouchPointSignal>(SpawnNewPoint);
-        _point = GetPointPrefab();
+    [SerializeField] private Point GetPointPrefab() => Instantiate(_pointPrefab, GetPointPosition(),Quaternion.identity);
+    void Awake(){
+        List<Vector3> children = new List<Vector3>();
+        foreach (Transform child in transform)
+            children.Add(child.localPosition);     
+        spawnZones = children.ToArray();
     }
-    void OnGetGameFieldScale(GetGameFieldScaleSignal signal){
-        _gameFieldScaleX = signal.width;
-        _gameFieldScaleZ = signal.length;
+    void Start(){
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+        _rand = new Random();
+        snakeModel = new SnakeModel();
+        _point = GetPointPrefab();
     }
     private Vector3 GetPointPosition(){
-        Random rand = new Random();
-        int xPosition = rand.Next(-_gameFieldScaleX*2,_gameFieldScaleX*2);
-        int zPosition = rand.Next(-_gameFieldScaleZ*2,_gameFieldScaleZ*2);
-        return new Vector3(xPosition, _pointPrefab.transform.localScale.y/2, zPosition);
+        int newSpawnPointNum = _rand.Next(0,spawnZones.Length-1);
+        while (newSpawnPointNum  == spawnPointNum)
+            newSpawnPointNum = _rand.Next(0,spawnZones.Length-1);
+        spawnPointNum = newSpawnPointNum;
+        return spawnZones[newSpawnPointNum];
     }
-    void SpawnNewPoint(TouchPointSignal signal){
-        _point = GetPointPrefab();
+    public void SpawnNewPoint(TouchPointSignal signal){
+        if (_point==null)
+            _point = GetPointPrefab();
     }
 }
+    

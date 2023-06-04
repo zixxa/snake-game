@@ -1,1 +1,0 @@
-Temp/ScriptUpdater/598561635/717427349_SpawnSnake.cs => Assets/Scripts/Spawners/SpawnSnake.cs

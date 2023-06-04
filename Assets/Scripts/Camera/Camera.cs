@@ -8,7 +8,6 @@ public class Camera : MonoBehaviour
     float yRotation;
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
-    [SerializeField] private Transform orientation;
     public void Start(){
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -21,6 +20,5 @@ public class Camera : MonoBehaviour
         yRotation -= mouseX;
         xRotation = Mathf.Clamp(xRotation, -45f, 45f);
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }

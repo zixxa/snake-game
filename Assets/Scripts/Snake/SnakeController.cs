@@ -15,6 +15,7 @@ public class SnakeController : MonoBehaviour, IService{
         _eventBus.Subscribe<TouchPointSignal>(snakeModel.OnIncreaseLength);
         _eventBus.Subscribe<GetDataFromModelSignal>(snakeModel.OnGetDataFromModel);
         _eventBus.Subscribe<PostBodyRigidbodyDataSignal>(snake.OnPostRigidbodyDataToView);
+        _eventBus.Invoke(new AttachCameraSignal(snake.head.transform));
 
         snake.head.rigidbody.mass = snakeModel.head.mass;
         snake.head.rigidbody.freezeRotation = true;

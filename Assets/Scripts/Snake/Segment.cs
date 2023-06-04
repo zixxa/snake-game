@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using CustomEventBus;
 using CustomEventBus.Signals;
@@ -15,6 +14,6 @@ public class Segment : MonoBehaviour, IService
     }
     void OnTriggerEnter(Collider trigger){
         Destroy(trigger.transform.parent.gameObject);
-        _eventBus.Invoke(TouchPointSignal.getInstance());
+        _eventBus.Invoke(new TouchPointSignal());
     }
 }

@@ -42,8 +42,6 @@ public class Player: MonoBehaviour, IService
 
         Quaternion deltaRotation = Quaternion.Euler(_angleVelocity * Time.deltaTime);
         segment.rigidbody.MoveRotation(GetComponent<Rigidbody>().rotation * deltaRotation);
-
-        Debug.Log(moveSpeed + (bodyCount+1)*100);
         segment.rigidbody.AddForce(_moveDirection.normalized * (moveSpeed + (bodyCount+1)*100), ForceMode.Force);
     }
 }

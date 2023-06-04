@@ -36,21 +36,24 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets/Scripts/Spawners/SpawnController.cs" />
      <Compile Include="Assets/Scripts/Snake/SnakeController.cs" />
      <Compile Include="Assets/Scripts/Snake/Segment.cs" />
+     <Compile Include="Assets/Scripts/Camera/CameraController.cs" />
      <Compile Include="Assets/Scripts/EventBus/CallbackWithPriority.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/TouchPointSignal.cs" />
      <Compile Include="Assets/Scripts/Camera/Camera.cs" />
      <Compile Include="Assets/Scripts/GameField/GameField.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/GetGameFieldScaleSignal.cs" />
      <Compile Include="Assets/Scripts/UI/UIScore.cs" />
      <Compile Include="Assets/Scripts/Snake/Snake.cs" />
      <Compile Include="Assets/Scripts/Spawners/SpawnSnake.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/AttachCameraSignal.cs" />
      <Compile Include="Assets/Scripts/Camera/CameraPosition.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/MovementSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/AddBodySegmentSignal.cs" />
      <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocator.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/PostBodyRigidbodyDataSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/PostBodyCountSignal.cs" />
      <Compile Include="Assets/Scripts/Snake/Player.cs" />
      <Compile Include="Assets/Scripts/Snake/SnakeModel.cs" />
      <Compile Include="Assets/Scripts/EventBus/EventBus.cs" />
@@ -59,9 +62,6 @@
      <Compile Include="Assets/Scripts/ServiceLocator/IService.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GetDataFromModelSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/SpawnPoint.cs" />
-     <Compile Include="Assets/Scripts/Camera/CameraController.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/AttachCameraSignal.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/PostBodyCountSignal.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/zixxa/Unity/Hub/Editor/2021.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
