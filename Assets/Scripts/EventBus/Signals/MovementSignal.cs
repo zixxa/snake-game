@@ -1,4 +1,3 @@
-
 namespace CustomEventBus.Signals{
 
 public class MovementSignal{

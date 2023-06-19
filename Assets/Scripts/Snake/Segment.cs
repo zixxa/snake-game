@@ -4,7 +4,8 @@ using CustomEventBus.Signals;
 public class Segment : MonoBehaviour, IService
 {
     private EventBus _eventBus;
-    public Rigidbody rigidbody;
+    public string code;
+    Rigidbody rigidbody;
     public Transform transform;
     void Awake(){
         rigidbody = gameObject.AddComponent<Rigidbody>();
@@ -13,7 +14,9 @@ public class Segment : MonoBehaviour, IService
         _eventBus = ServiceLocator.Current.Get<EventBus>();
     }
     void OnTriggerEnter(Collider trigger){
-        Destroy(trigger.transform.parent.gameObject);
-        _eventBus.Invoke(new TouchPointSignal());
+        Point point = trigger.transform.parent.gameObject.GetComponent<Point>();
+        _eventBus.Invoke(new ReleasePointSignal(point));
+        _eventBus.Invoke(new TouchPointSignal(point));
+        _eventBus.Invoke(new GetPointSignal(trigger.transform.parent.gameObject.transform));
     }
 }

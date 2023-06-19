@@ -33,7 +33,7 @@ public class Player: MonoBehaviour, IService
         var verticalInput = Input.GetAxisRaw("Vertical");
         var horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        segment.rigidbody.drag = (verticalInput == 0) ? groundDragOnStop: groundDragOnMove;
+        segment.GetComponent<Rigidbody>().drag = (verticalInput == 0) ? groundDragOnStop: groundDragOnMove;
 
         _moveDirection = segment.transform.forward * verticalInput;
         float speed = Input.GetAxisRaw("Vertical") * Time.deltaTime;
@@ -41,7 +41,7 @@ public class Player: MonoBehaviour, IService
         _angleVelocity = new Vector3(0, horizontalInput * Time.deltaTime * rotateMoveSpeed, 0);
 
         Quaternion deltaRotation = Quaternion.Euler(_angleVelocity * Time.deltaTime);
-        segment.rigidbody.MoveRotation(GetComponent<Rigidbody>().rotation * deltaRotation);
-        segment.rigidbody.AddForce(_moveDirection.normalized * (moveSpeed + (bodyCount+1)*100), ForceMode.Force);
+        segment.GetComponent<Rigidbody>().MoveRotation(GetComponent<Rigidbody>().rotation * deltaRotation);
+        segment.GetComponent<Rigidbody>().AddForce(_moveDirection.normalized * (moveSpeed + (bodyCount+1)*100), ForceMode.Force);
     }
 }

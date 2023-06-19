@@ -16,4 +16,7 @@ public class UIScore : MonoBehaviour, IService
     private void OnUpdateScore(PostBodyCountSignal signal){
         _score.text = $"Score {signal.bodyCount}";
     }
+    void OnDestroy(){
+        Destroy(_score);
+    }
 }

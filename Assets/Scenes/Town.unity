@@ -123,52 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &25859134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 25859136}
-  - component: {fileID: 25859135}
-  m_Layer: 0
-  m_Name: SpawnController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &25859135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25859134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b93b6e14b40ab99bbd40aaceea9ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 195764639}
-  spawnSnake: {fileID: 1105552123}
---- !u!4 &25859136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25859134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160199810
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,8 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8acd6262ca2a4a08183287c3f64548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beginSpawnPosition: {fileID: 0}
-  _pointPrefab: {fileID: -4160481932501934147, guid: a3c4a10f4b6e958b8ab706bf65ff7201, type: 3}
+  _pointsScriptableObjects:
+  - {fileID: 11400000, guid: ea5e5f89b78748704a08617d957e872b, type: 2}
+  - {fileID: 11400000, guid: a80dc0a3fa1c67f2495e0165ea461c7b, type: 2}
+  - {fileID: 11400000, guid: 280c8599461527ec5b7cb73a3ce5442b, type: 2}
 --- !u!4 &195764640
 Transform:
   m_ObjectHideFlags: 0
@@ -680,7 +636,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headPrefab: {fileID: 8314988294384521823, guid: 85bcee95291ff29c5b099827639312cf, type: 3}
-  _bodyPrefab: {fileID: 5876260196462656119, guid: 239e1b34e10c63b82a87348f57e52f4c, type: 3}
 --- !u!1 &1214486463
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,10 +768,10 @@ RectTransform:
   m_Father: {fileID: 455121240}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 206.466, y: -455.087}
-  m_SizeDelta: {x: 398.012, y: 85.836}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 154.6, y: 51}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632560924
 MonoBehaviour:

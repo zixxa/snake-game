@@ -3,32 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using CustomEventBus;
 using CustomEventBus.Signals;
-
-public abstract class SegmentModel {
-    public const int MAX_HEALTH = 100;
-    public int Hp {get;set;}
-    public int MaxHp {get;set;}
-
-    public SegmentModel(){
-        MaxHp = MAX_HEALTH;
-        Hp = MaxHp;
-    }    
-}
-
-public class Head: SegmentModel{
+public class Head
+{
     public int mass{get;private set;} = 100;
-    public Head() : base(){
-    }
 }
 
-public class Body: SegmentModel{
+public class Body
+{
     public int mass{get;set;} = 10;
     public float drag{get;private set;} = 0.5f;
-    public Body() : base() {
-    }
 } 
 
-public class MovementProvider{
+public class MovementProvider
+{
     public int moveSpeed{get;private set;} = 2000;
     public int rotateMoveSpeed{get;private set;} = 6000;
     public float dragOnMove{get;private set;} = 0.5f;
@@ -47,7 +34,6 @@ public class SnakeModel: IService
     }
     public void OnIncreaseLength(TouchPointSignal signal){
         bodyCount++;
-        Debug.Log($"Increased! {bodyCount} segments in snake!");
         _eventBus.Invoke(new PostBodyCountSignal(bodyCount));
     }
     public void OnGetDataFromModel(GetDataFromModelSignal signal){
