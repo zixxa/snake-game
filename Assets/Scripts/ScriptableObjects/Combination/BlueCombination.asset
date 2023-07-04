@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ca3f44afd9ff40fa78246acca6993d, type: 3}
+  m_Name: BlueCombination
+  m_EditorClassIdentifier: 
+  name: Blue Combination
+  elements:
+  - {fileID: 11400000, guid: 9d6033393699b74dcabb8365fdfa57bc, type: 2}
+  - {fileID: 11400000, guid: 9d6033393699b74dcabb8365fdfa57bc, type: 2}
+  - {fileID: 11400000, guid: 9d6033393699b74dcabb8365fdfa57bc, type: 2}
+  resultBody: {fileID: 11400000, guid: 3638cee0ba3b8e102a2296f1f6869d8d, type: 2}

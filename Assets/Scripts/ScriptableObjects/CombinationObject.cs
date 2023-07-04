@@ -6,5 +6,6 @@ using UnityEngine;
 public class CombinationObject: ScriptableObject
 {
     public string name;
-    public List<BodyObject> combination;
+    public List<BodyObject> elements;
+    public BodyObject resultBody;
 }

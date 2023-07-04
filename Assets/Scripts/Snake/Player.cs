@@ -13,11 +13,13 @@ public class Player: MonoBehaviour, IService
     private float groundDragOnMove {get;set;}
     private float groundDragOnStop{get;set;}
     private int bodyCount{get;set;}
-    void Start(){
-        segment = GetComponent<Segment>();
+    void Start()
+    {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<MovementSignal>(OnMove);
         _eventBus.Subscribe<PostBodyCountSignal>(OnGetBodyCount);
+
+        segment = GetComponent<Segment>();
         _eventBus.Invoke(new MovementSignal());
     }
     public void OnGetBodyCount(PostBodyCountSignal signal){

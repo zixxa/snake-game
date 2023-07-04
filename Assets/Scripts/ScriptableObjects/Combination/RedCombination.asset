@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RedCombination
   m_EditorClassIdentifier: 
   name: Red Combination
-  combination:
+  elements:
   - {fileID: 11400000, guid: 2f471d2481d3c3d239bbaba56442086a, type: 2}
   - {fileID: 11400000, guid: 2f471d2481d3c3d239bbaba56442086a, type: 2}
   - {fileID: 11400000, guid: 2f471d2481d3c3d239bbaba56442086a, type: 2}
+  resultBody: {fileID: 11400000, guid: e5c16d0855dd64871b6bdf4aeb01cbd6, type: 2}

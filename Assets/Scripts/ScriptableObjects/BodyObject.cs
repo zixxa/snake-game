@@ -7,5 +7,5 @@ public class BodyObject: ScriptableObject
 {
     public string name;
     public Segment prefab;
-
+    public string code;
 }

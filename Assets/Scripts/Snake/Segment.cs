@@ -17,6 +17,5 @@ public class Segment : MonoBehaviour, IService
         Point point = trigger.transform.parent.gameObject.GetComponent<Point>();
         _eventBus.Invoke(new ReleasePointSignal(point));
         _eventBus.Invoke(new TouchPointSignal(point));
-        _eventBus.Invoke(new GetPointSignal(trigger.transform.parent.gameObject.transform));
     }
 }

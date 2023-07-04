@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   code: red
-  count: 0
+  count: 3
   prefab: {fileID: -4160481932501934147, guid: 780fd829073348fa69ef73754684934c, type: 3}
   createdBody: {fileID: 11400000, guid: 2f471d2481d3c3d239bbaba56442086a, type: 2}

@@ -36,21 +36,29 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/Scripts/Snake/SnakeEventSubscriber.cs" />
+     <Compile Include="Assets/Scripts/UI/Dialog.cs" />
      <Compile Include="Assets/Scripts/Snake/Segment.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/GameStartSignal.cs" />
      <Compile Include="Assets/Scripts/Camera/CameraController.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/ReleasePointSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/CallbackWithPriority.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/GetScriptableObjectCombinationsSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/TouchPointSignal.cs" />
      <Compile Include="Assets/Scripts/Camera/Camera.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/GameStopSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/FillCombinationsSignal.cs" />
+     <Compile Include="Assets/Scripts/UI/DialogManager.cs" />
      <Compile Include="Assets/Scripts/GameField/GameField.cs" />
-     <Compile Include="Assets/Scripts/UI/UIScore.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/GameOverSignal.cs" />
+     <Compile Include="Assets/Scripts/UI/HUD.cs" />
      <Compile Include="Assets/Scripts/Snake/Snake.cs" />
      <Compile Include="Assets/Scripts/Spawners/SnakeSpawner.cs" />
+     <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocatorLoaderMenu.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/AttachCameraSignal.cs" />
+     <Compile Include="Assets/Scripts/UI/Dialogs/MenuDialog.cs" />
      <Compile Include="Assets/Scripts/Camera/CameraPosition.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/MovementSignal.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/GetPointSignal.cs" />
+     <Compile Include="Assets/Scripts/Controllers/GameController.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/AddBodySegmentSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GetScriptableObjectPointsSignal.cs" />
      <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocator.cs" />
@@ -63,8 +71,13 @@
      <Compile Include="Assets/Scripts/ObjectPool/ObjectPool.cs" />
      <Compile Include="Assets/Scripts/ScriptableObjects/PointObject.cs" />
      <Compile Include="Assets/Scripts/Point/Point.cs" />
+     <Compile Include="Assets/Scripts/UI/Dialogs/LoseDialog.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/FillPointsSignal.cs" />
-     <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocatorLoader.cs" />
+     <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocatorLoaderGame.cs" />
+     <Compile Include="Assets/Scripts/Snake/Combinations.cs" />
+     <Compile Include="Assets/Scripts/UI/GUIHolder.cs" />
+     <Compile Include="Assets/Scripts/ConstantValues.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/CheckCombinationSignal.cs" />
      <Compile Include="Assets/Scripts/ServiceLocator/IService.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GetDataFromModelSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/PointSpawner.cs" />
