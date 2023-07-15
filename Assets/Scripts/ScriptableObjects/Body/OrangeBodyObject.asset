@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: OrangeBodyObject
   m_EditorClassIdentifier: 
   name: Orange
-  prefab: {fileID: 5876260196462656119, guid: 4a60fc536757d1bf0997f7b1620f2119, type: 3}
+  prefab: {fileID: 2856838146909530135, guid: 4a60fc536757d1bf0997f7b1620f2119, type: 3}
   code: orange

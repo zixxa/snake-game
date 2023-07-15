@@ -22,7 +22,7 @@ public class LoseDialog : Dialog
 
     private void TryAgain()
     {
-        _eventBus.Invoke(new GameStartSignal());
+        //_eventBus.Invoke(new GameStartSignal());
         Hide();
     }
 
@@ -30,4 +30,8 @@ public class LoseDialog : Dialog
     {
         SceneManager.LoadScene(ConstantValues.MENU_SCENE_NAME);
     }
+    //private void TryAgain()
+    //{
+    //    _eventBus.Invoke(new RestartLevelSignal());
+    //}
 }

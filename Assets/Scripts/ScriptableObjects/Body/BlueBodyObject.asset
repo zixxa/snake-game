@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BlueBodyObject
   m_EditorClassIdentifier: 
   name: Blue
-  prefab: {fileID: 5876260196462656119, guid: f80291a9d79233921b5b5137fb9cd4fd, type: 3}
+  prefab: {fileID: 3807844571875591453, guid: f80291a9d79233921b5b5137fb9cd4fd, type: 3}
   code: blue

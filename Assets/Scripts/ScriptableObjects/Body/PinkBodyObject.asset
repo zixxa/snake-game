@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PinkBodyObject
   m_EditorClassIdentifier: 
   name: Pink
-  prefab: {fileID: 5876260196462656119, guid: d8169ef2d8b4b7b68bc341380797cf24, type: 3}
+  prefab: {fileID: 304697263262287622, guid: d8169ef2d8b4b7b68bc341380797cf24, type: 3}
   code: pink

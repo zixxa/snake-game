@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DarkBlueBodyObject
   m_EditorClassIdentifier: 
   name: DarkBlue
-  prefab: {fileID: 5876260196462656119, guid: 4ef295704e224956f8d32b7db5f1fc10, type: 3}
+  prefab: {fileID: 3569841121193847419, guid: 4ef295704e224956f8d32b7db5f1fc10, type: 3}
   code: darkblue

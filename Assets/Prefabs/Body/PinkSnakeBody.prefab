@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2753345498738227577}
-  - component: {fileID: 5876260196462656119}
+  - component: {fileID: 304697263262287622}
   m_Layer: 0
   m_Name: PinkSnakeBody
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5876260196462656119
+--- !u!114 &304697263262287622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741466471163381067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57f4970a81519965b12e4a58fef9a5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e3a2e6f7e0b32ac8b023cd20321d147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  code: orange
+  code: pink
   transform: {fileID: 6612660079891432823}
 --- !u!1 &1799252097806005655
 GameObject:

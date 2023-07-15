@@ -30,6 +30,6 @@ public class HUD: MonoBehaviour, IService
             _time.text = $"Time {minutes}:{seconds}";
             yield return new WaitForSeconds(1);
         }
-        _eventBus.Invoke(new GameOverSignal());
+        _eventBus.Invoke(new LevelPassedSignal());
     }
 }

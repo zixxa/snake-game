@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RedBodyPrefab
   m_EditorClassIdentifier: 
   name: Red
-  prefab: {fileID: 5876260196462656119, guid: 1e217742df28fdca8b1e9cb9675689e1, type: 3}
+  prefab: {fileID: -3529441116554450606, guid: 1e217742df28fdca8b1e9cb9675689e1, type: 3}
   code: red

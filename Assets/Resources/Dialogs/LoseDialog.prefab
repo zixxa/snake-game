@@ -479,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _outsideClickArea: {fileID: 0}
   _tryAgainButton: {fileID: 2699496603324181009}
-  _goToMenuButton: {fileID: 0}
+  _goToMenuButton: {fileID: 5901998959205792402}
 --- !u!1 &4059635396035518395
 GameObject:
   m_ObjectHideFlags: 0
