@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4380d7462bd2f640f885a07604f14859, type: 3}
   m_Name: GreenPoint
   m_EditorClassIdentifier: 
-  name: 
-  code: green
+  name: greenpoint
   count: 1
   prefab: {fileID: -4160481932501934147, guid: 7169015a4982750d993c0a64a1f7ea12, type: 3}
-  createdBody: {fileID: 11400000, guid: fb98ceb155115dd9ca27ac6745dfc8ef, type: 2}
+  color: {fileID: 11400000, guid: e9a6d8dbaec3704708b5a8a1e8178d1e, type: 2}

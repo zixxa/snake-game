@@ -3,8 +3,8 @@ using CustomEventBus;
 using CustomEventBus.Signals;
 public class Segment : MonoBehaviour, IService
 {
-    private EventBus _eventBus;
-    public string code;
+    protected EventBus _eventBus;
+    public ColorObject color;
     public Transform transform;
     void Awake(){
         _eventBus = ServiceLocator.Current.Get<EventBus>();

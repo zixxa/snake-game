@@ -142,5 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f45b7212f5aab479851c8a706ac9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transform: {fileID: 9059101006076325448}
-  code: pink
+  color: {fileID: 11400000, guid: 3a7560da2258221cf9391a0e6cde1e01, type: 2}

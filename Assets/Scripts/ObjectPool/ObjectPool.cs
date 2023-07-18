@@ -11,22 +11,24 @@ namespace ObjectPool
         private List<T> _prefabs;
         private List<T> _objects;
 
-        public Pool(List<T> prefabs, int prewarmObjects)
+        //Принимает словарь префабов с их количеством
+        public Pool(Dictionary<T,int> prefabGroups)
         {
-            _prefabs = prefabs;
+            _prefabs = prefabGroups.Select(x => x.Key).ToList();
             _objects = new List<T>();
-            for (int i = 0; i < prewarmObjects; i++)
+
+            foreach (var prefab in prefabGroups)
             {
-                for (int j = 0; j < _prefabs.Count(); j++)
+                for (int j = 0; j < prefab.Value; j++)
                 {
-                    var obj = GameObject.Instantiate(_prefabs[j]);
+                    var obj = GameObject.Instantiate(prefab.Key);
                     obj.gameObject.SetActive(false);
                     _objects.Add(obj);
                 }
             }
         }
 
-        public T Get(){
+        public T RandomGet(){
             Random rand = new Random();
             var objects = _objects.Where(x => !x.isActiveAndEnabled).ToList();
             var obj = objects.ElementAt(rand.Next(0,objects.Count()));
@@ -38,15 +40,27 @@ namespace ObjectPool
             return obj;
         }
 
-        public void Release(T obj){
-            obj.gameObject.SetActive(false);
-        }
+        public T Get()
+            {
+                var obj = _objects.FirstOrDefault(x => !x.isActiveAndEnabled);
+
+                if (obj == null)
+                {
+                    obj = Create();
+                }
+
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
 
         private T Create(){
             Random rand = new Random();
             var obj = GameObject.Instantiate(_prefabs.ElementAt(rand.Next(0,_prefabs.Count())));
             _objects.Add(obj);
             return obj;
+        }
+        public void Release(T obj){
+            obj.gameObject.SetActive(false);
         }
     }
 }

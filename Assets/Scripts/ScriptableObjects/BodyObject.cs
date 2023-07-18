@@ -5,5 +5,5 @@ public class BodyObject: ScriptableObject
 {
     public string name;
     public Body prefab;
-    public string code;
+    public ColorObject color;
 }

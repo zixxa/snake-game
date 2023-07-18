@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Scripts/EventBus/Signals/PlayerSignals/GetMovementDataSignal.cs" />
+     <Compile Include="Assets/Scripts/Color/ColorObject.cs" />
      <Compile Include="Assets/Scripts/UI/Dialog.cs" />
      <Compile Include="Assets/Scripts/Snake/Element/Segment.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GameSignals/GameStartSignal.cs" />
@@ -44,6 +45,8 @@
      <Compile Include="Assets/Scripts/Camera/CameraController.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/PointSignals/ReleasePointSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/CallbackWithPriority.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/EnemySignals/RegisterEnemySpawnSignal.cs" />
+     <Compile Include="Assets/Scripts/ScriptableObjects/EnemyObject.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/CombinationSignals/GetScriptableObjectCombinationsSignal.cs" />
      <Compile Include="Assets/Scripts/Snake/Model/BodyData.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/LevelSignals/RestartLevelSignal.cs" />
@@ -51,13 +54,14 @@
      <Compile Include="Assets/Scripts/Level/LevelHolder.cs" />
      <Compile Include="Assets/Scripts/Camera/Camera.cs" />
      <Compile Include="Assets/Scripts/Controllers/Pause/IPauseHandler.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/SnakeSignals/RegisterPointSpawn.cs" />
      <Compile Include="Assets/Scripts/Controllers/Pause/PauseController.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GameSignals/GameStopSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/SnakeSignals/RegisterSnakeSpawn.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/LevelSignals/LevelPassedSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/Snake/SnakeSpawn.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/CombinationSignals/FillCombinationsSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/PlayerSignals/PostMovementDataSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/SnakeSignals/FillPointsSignal.cs" />
      <Compile Include="Assets/Scripts/UI/DialogManager.cs" />
      <Compile Include="Assets/Scripts/GameField/GameField.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GameSignals/GameOverSignal.cs" />
@@ -65,6 +69,7 @@
      <Compile Include="Assets/Scripts/UI/HUD.cs" />
      <Compile Include="Assets/Scripts/Snake/Snake.cs" />
      <Compile Include="Assets/Scripts/Level/Level.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/EnemySignals/GetHeadForEnemiesSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/Snake/SnakeSpawner.cs" />
      <Compile Include="Assets/Scripts/Spawners/Points/IPointSpawn.cs" />
      <Compile Include="Assets/Scripts/ServiceLocator/ServiceLocatorLoaderMenu.cs" />
@@ -76,6 +81,7 @@
      <Compile Include="Assets/Scripts/Controllers/GameController.cs" />
      <Compile Include="Assets/Scripts/Snake/Element/Head.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/LevelSignals/NextLevelSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/SnakeSignals/GetScriptableObjectBodiesSignal.cs" />
      <Compile Include="Assets/Scripts/Enemy/Enemy.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/SnakeSignals/AddBodySegmentSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/PointSignals/GetScriptableObjectPointsSignal.cs" />
@@ -84,18 +90,21 @@
      <Compile Include="Assets/Scripts/EventBus/Signals/PostBodyCountSignal.cs" />
      <Compile Include="Assets/Scripts/Player/Player.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/GameSignals/GameClearSignal.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/EnemySignals/GetScriptableObjectEnemiesSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/Enemies/EnemySpawner.cs" />
      <Compile Include="Assets/Scripts/Snake/Element/Body.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/EnemySignals/FillEnemiesSignal.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/LevelSignals/LevelFinishedSignal.cs" />
      <Compile Include="Assets/Scripts/Snake/SnakeDataProvider.cs" />
      <Compile Include="Assets/Scripts/Snake/Model/HeadData.cs" />
      <Compile Include="Assets/Scripts/EventBus/EventBus.cs" />
      <Compile Include="Assets/Scripts/ScriptableObjects/CombinationObject.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/EnemySignals/ReleaseEnemySignal.cs" />
      <Compile Include="Assets/Scripts/ObjectPool/ObjectPool.cs" />
      <Compile Include="Assets/Scripts/ScriptableObjects/PointObject.cs" />
      <Compile Include="Assets/Scripts/Point/Point.cs" />
      <Compile Include="Assets/Scripts/UI/Dialogs/LoseDialog.cs" />
-     <Compile Include="Assets/Scripts/EventBus/Signals/PointSignals/RegisterPointSpawns.cs" />
+     <Compile Include="Assets/Scripts/EventBus/Signals/PointSignals/RegisterPointSpawnSignal.cs" />
      <Compile Include="Assets/Scripts/Spawners/Enemies/IEnemySpawn.cs" />
      <Compile Include="Assets/Scripts/EventBus/Signals/PointSignals/FillPointsSignal.cs" />
      <Compile Include="Assets/Scripts/Snake/Model/SegmentData.cs" />
@@ -817,6 +826,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{0eb36055-1c14-4408-ca25-57ed49d2997f}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{9c0c288a-c862-e53b-fc3f-0e7ab3909f5c}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

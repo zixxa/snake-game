@@ -7,47 +7,48 @@ using CustomEventBus;
 using CustomEventBus.Signals;
 using ObjectPool;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour, IService {
     private EventBus _eventBus;
+    private int enemiesCount = 0;
+    private List<IEnemySpawn> _enemySpawns;
+    private Pool<Enemy> pool;
+    [SerializeField] private int maxNumOfEnemies;
+    [SerializeField] private int _spawnTime;
+    [SerializeField] private List<EnemyObject> _enemies;
     public void Init()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<ReleaseEnemySignal>(OnReleaseEnemy);
-        _eventBus.Subscribe<GetScriptableObjectEnemiesSignal>(GetScriptableObjectsEnemies);
         _eventBus.Subscribe<GameStartSignal>(OnGameStart);
     }
-    void OnStartGame()
+    void OnGameStart(GameStartSignal signal)
     {
-        _enemySpawns = new List<IPointSpawn>();
-        _eventBus.Invoke(new RegisterEnemySpawns());
-        pool = new Pool<Point>(_points.Select(x=>x.prefab).ToList(), 3);
-        _freePositions = new Queue<Vector3>();
-
-        foreach (var pointSpawn in _pointSpawns){
-            if (pointSpawn!=null)
-            {
-                var point = pool.Get();      
-                point.transform.position = pointSpawn.transform.position;
-            }
+        _enemySpawns = new List<IEnemySpawn>();
+        _eventBus.Invoke(new RegisterEnemySpawnSignal());
+        pool = new Pool<Enemy>(_enemies.ToDictionary(x=>x.prefab, x=>x.count));
+        StartCoroutine(GetEnemy());
+    }
+    void Update()
+    {
+        while (enemiesCount < maxNumOfEnemies)
+        {
+            StartCoroutine(GetEnemy());
         }
     }
-    public void Register(IPointSpawn spawn)
+    public void Register(IEnemySpawn spawn)
     {
         _enemySpawns.Add(spawn);
+
     }
-    private void GetScriptableObjectsPoints(GetScriptableObjectPointsSignal signal)
+    private void OnReleaseEnemy(ReleaseEnemySignal signal)
     {
-        _eventBus.Invoke(new FillPointsSignal(_points));
+        pool.Release(signal.enemy);
+        enemiesCount--;
     }
-    private void OnReleasePoint(ReleasePointSignal signal)
-    {
-        _freePositions.Enqueue(signal.point.transform.position);
-        pool.Release(signal.point);
-        StartCoroutine(GetPoint());
-    }
-    IEnumerator GetPoint()
+    IEnumerator GetEnemy()
     {
         yield return new WaitForSeconds(_spawnTime);
         Enemy enemy = pool.Get();
+        enemiesCount++;
     }
 }

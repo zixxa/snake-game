@@ -15,6 +15,7 @@ public class SnakeSpawner: MonoBehaviour, IService
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<GameStartSignal>(OnGameStart);
+        _eventBus.Subscribe<GetScriptableObjectBodiesSignal>(GetScriptableObjectsBodies);
     }
     private void OnGameStart(GameStartSignal signal){
         GameObject snakeObj = new GameObject("Snake");
@@ -36,5 +37,9 @@ public class SnakeSpawner: MonoBehaviour, IService
     private void OnDispose()
     {
         _eventBus.Unsubscribe<GameStartSignal>(OnGameStart);
+    }
+    private void GetScriptableObjectsBodies(GetScriptableObjectBodiesSignal signal)
+    {
+        _eventBus.Invoke(new FillBodiesSignal(_bodyScriptableObjects));
     }
 }

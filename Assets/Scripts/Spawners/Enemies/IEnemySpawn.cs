@@ -1,5 +1,5 @@
 using UnityEngine;
-public interface IPointSpawn
+public interface IEnemySpawn
 {
     public Transform transform{get;}
 }

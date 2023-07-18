@@ -6,9 +6,7 @@ public class Player: MonoBehaviour, IService
 {
     private MovementData movement;
     private EventBus _eventBus;
-
     private int bodyCount;
-
     public Segment player{get;private set;}
     void Start()
     {

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3a2e6f7e0b32ac8b023cd20321d147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  code: orange
+  color: {fileID: 11400000, guid: 993b98bbc31579ae2b6496234805893a, type: 2}
   transform: {fileID: 6612660079891432823}
 --- !u!1 &1799252097806005655
 GameObject:

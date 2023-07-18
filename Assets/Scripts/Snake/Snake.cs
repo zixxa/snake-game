@@ -27,6 +27,7 @@ public class Snake : MonoBehaviour, IService
         _eventBus = ServiceLocator.Current.Get<EventBus>();
 
         _eventBus.Subscribe<FillPointsSignal>(bodyLinker.OnFillPoints);
+        _eventBus.Subscribe<FillBodiesSignal>(bodyLinker.OnFillBodies);
         _eventBus.Subscribe<FillCombinationsSignal>(OnFillCombinations);
         _eventBus.Subscribe<CheckCombinationSignal>(OnCheckCombination);
         _eventBus.Subscribe<TouchPointSignal>(OnTouchPoint);
@@ -35,9 +36,12 @@ public class Snake : MonoBehaviour, IService
         _eventBus.Subscribe<GameClearSignal>(Delete);
 
         _eventBus.Invoke(new GetScriptableObjectPointsSignal());        
+        _eventBus.Invoke(new GetScriptableObjectBodiesSignal());        
         _eventBus.Invoke(new GetScriptableObjectCombinationsSignal());        
         _eventBus.Invoke(new AttachCameraSignal(head.transform));
         _eventBus.Invoke(new PostSnakeDataProviderSignal());
+        _eventBus.Invoke(new GetHeadForEnemiesSignal(head));
+        bodyLinker.OnInit();
         SetHeadSettings();
     }
     void SetHeadSettings()
@@ -89,7 +93,7 @@ public class Snake : MonoBehaviour, IService
             for (int i=0; i<combination.elements.Count(); i++)
             {
 
-                if (body[body.Count() - i - 1].code == combination.elements[i].code)
+                if (body[body.Count() - i - 1].color == combination.elements[i].color)
                 {
                     coincidence++;                    
                 }
@@ -132,11 +136,24 @@ public class BodyLinker
 {
     private EventBus _eventBus;
     private List<PointObject> pointObjects;
+    private List<BodyObject> bodyObjects;
     public Dictionary<string,Body> linksByBodyAndPoints = new Dictionary<string, Body>();  
-    public Body GetBodyByPoint(Point point) => linksByBodyAndPoints[point.code];
+    public Body GetBodyByPoint(Point point) => linksByBodyAndPoints[point.color.code];
     public void OnFillPoints(FillPointsSignal signal)
     {
-        pointObjects = signal.pointsObjects;
-        linksByBodyAndPoints = Enumerable.Range(0,pointObjects.Count()).ToDictionary(x => pointObjects[x].code , x => pointObjects[x].createdBody.prefab);
+        pointObjects = signal.pointObjects;
+    }
+    public void OnFillBodies(FillBodiesSignal signal)
+    {
+        bodyObjects = signal.bodyObjects;
+    }
+    public void OnInit()
+    {
+        linksByBodyAndPoints = Enumerable.Range(0,pointObjects.Count()
+            ).ToDictionary(
+                x => pointObjects[x].color.code, 
+                x => bodyObjects.Where(i => i.color == pointObjects[x].color).Last().prefab
+            );
+        
     }
 }

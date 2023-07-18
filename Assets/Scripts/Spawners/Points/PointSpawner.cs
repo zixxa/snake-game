@@ -25,14 +25,14 @@ public class PointSpawner: MonoBehaviour, IService
     private void OnGameStart(GameStartSignal signal)
     {
         _pointSpawns = new List<IPointSpawn>();
-        _eventBus.Invoke(new RegisterPointSpawns());
-        pool = new Pool<Point>(_points.Select(x=>x.prefab).ToList(), 3);
+        _eventBus.Invoke(new RegisterPointSpawnSignal());
+        pool = new Pool<Point>(_points.ToDictionary(x=> x.prefab, x=>x.count));
         _freePositions = new Queue<Vector3>();
 
         foreach (var pointSpawn in _pointSpawns){
             if (pointSpawn!=null)
             {
-                var point = pool.Get();      
+                var point = pool.RandomGet();      
                 point.transform.position = pointSpawn.transform.position;
             }
         }

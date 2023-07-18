@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc75b4e31ae1fb89bdbabf471c00639, type: 3}
+  m_Name: BlueEnemyObject
+  m_EditorClassIdentifier: 
+  name: blue
+  count: 4
+  prefab: {fileID: -2077287166982002281, guid: a776f747ceee9fb86ade5fb8a58e0073, type: 3}
+  color: {fileID: 11400000, guid: f8c13fd3cb500ee21a9f714b9bec18ce, type: 2}

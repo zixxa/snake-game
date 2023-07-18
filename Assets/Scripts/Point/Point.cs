@@ -5,7 +5,7 @@ using CustomEventBus.Signals;
 public class Point: MonoBehaviour, IService
 {
     private EventBus _eventBus;
-    public string code;
+    public ColorObject color;
     private void Awake() {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<GameClearSignal>(Delete);

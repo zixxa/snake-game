@@ -6,8 +6,7 @@ using UnityEngine;
 public class PointObject: ScriptableObject
 {
     public string name;
-    public string code;
     public int count;
     public Point prefab;
-    public BodyObject createdBody;
+    public ColorObject color;
 }

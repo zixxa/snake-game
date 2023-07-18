@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4380d7462bd2f640f885a07604f14859, type: 3}
   m_Name: RedPoint
   m_EditorClassIdentifier: 
-  name: 
-  code: red
+  name: redpoint
   count: 3
   prefab: {fileID: -4160481932501934147, guid: 780fd829073348fa69ef73754684934c, type: 3}
-  createdBody: {fileID: 11400000, guid: 2f471d2481d3c3d239bbaba56442086a, type: 2}
+  color: {fileID: 11400000, guid: 12dece7fc1c39128eb9c80ef7d0fdc17, type: 2}
