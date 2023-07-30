@@ -3,12 +3,13 @@ using CustomEventBus.Signals;
 using UnityEngine;
 using Levels;
 
-public class LevelController : MonoBehaviour, IService
+public class LevelController : IService, IDisposable
 {
     private int _currentLevelId;
-    private LevelManager _levelManager;
+    private LevelDataManager _LevelDataManger;
     private EventBus _eventBus;
     private Level _level;
+    private int _levelId;
 
     public void Init()
     {
@@ -17,7 +18,7 @@ public class LevelController : MonoBehaviour, IService
         _eventBus.Subscribe<NextLevelSignal>(NextLevel);
         _eventBus.Subscribe<RestartLevelSignal>(RestartLevel);
 
-        _levelManager = ServiceLocator.Current.Get<LevelManager>();
+        _LevelDataManger = ServiceLocator.Current.Get<LevelDataManager>();
 
         PlayerPrefs.SetInt(ConstantValues.CURRENT_LEVEL_NAME, 0);
         _currentLevelId = PlayerPrefs.GetInt(ConstantValues.CURRENT_LEVEL_NAME, 0);
@@ -29,7 +30,7 @@ public class LevelController : MonoBehaviour, IService
         LoadLevel(_currentLevelId);
     }
     private void LoadLevel(int levelId){
-        var _level = _levelManager.ShowLevel<Level>(levelId);
+        var _level = _LevelDataManger.ShowLevel<Level>(levelId);
         if (_level == null)
         {
             Debug.LogErrorFormat("Can't find level with id {0}", _currentLevelId);
@@ -41,7 +42,10 @@ public class LevelController : MonoBehaviour, IService
     private void NextLevel(NextLevelSignal signal)
     {
         _currentLevelId++;
-        LoadLevel(_currentLevelId);
+        if (_currentLevelId < _LevelDataManger.LevelsCount)
+            LoadLevel(_currentLevelId);
+        else
+            _eventBus.Invoke(new GameWinSignal());
     }
 
     private void ClearLevel()
@@ -52,26 +56,18 @@ public class LevelController : MonoBehaviour, IService
     private void RestartLevel(RestartLevelSignal signal)
     {
         ClearLevel();
-        _eventBus.Invoke(new SetLevelSignal(_level));
+        LoadLevel(_currentLevelId);
     }
-    
-    private void SelectLevel(int levelId)
-    {
-        _level = _levelManager.GetLevel<Level>(levelId);
-        _eventBus.Invoke(new SetLevelSignal(_level));
-    }
-
     private void LevelPassed(LevelPassedSignal signal)
     {
         ClearLevel();
         PlayerPrefs.SetInt(ConstantValues.CURRENT_LEVEL_NAME, (_currentLevelId + 1));
         _eventBus.Invoke(new NextLevelSignal());
     }
-
-    private void OnDestroy()
+    public void Dispose()
     {
         _eventBus.Unsubscribe<LevelPassedSignal>(LevelPassed);
         _eventBus.Unsubscribe<NextLevelSignal>(NextLevel);
-        //_eventBus.Unsubscribe<LevelRestartSignal>();
+        _eventBus.Unsubscribe<RestartLevelSignal>(RestartLevel);
     }
 }

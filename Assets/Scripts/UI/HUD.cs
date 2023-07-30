@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UI;
 using CustomEventBus;
 using CustomEventBus.Signals;
 public class HUD: MonoBehaviour, IService
@@ -9,27 +10,14 @@ public class HUD: MonoBehaviour, IService
     private EventBus _eventBus;
     [SerializeField] private Text _score;
     [SerializeField] private Text _time;
-    [SerializeField] private int timeInSec;
-    void Start()
+    [SerializeField] private SurvivingTimer timer;
+    private int _scoreCount = 0;
+
+    public void Init()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
-        _eventBus.Subscribe<PostBodyCountSignal>(OnRedrawScore);
-        StartCoroutine(Timer(timeInSec));
+        _eventBus.Subscribe<GetTimeSignal>(OnGetTime);
+        timer.Init();
     }
-    private void OnRedrawScore(PostBodyCountSignal signal)
-    {
-        _score.text = $"Score {signal.bodyCount}";
-    }
-    IEnumerator Timer(int timeInSec)
-    {
-        for (int i = timeInSec; i>=0; i--)
-        {
-            string seconds = i<10 ? "0"+Convert.ToString(i) : Convert.ToString(i%60);
-            string minutes = i>60 ? Convert.ToString(i/60) :"00";
-
-            _time.text = $"Time {minutes}:{seconds}";
-            yield return new WaitForSeconds(1);
-        }
-        _eventBus.Invoke(new LevelPassedSignal());
-    }
+    private void OnGetTime(GetTimeSignal signal) => _time.text = signal.time;
 }

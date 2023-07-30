@@ -6,49 +6,64 @@ using System.Collections.Generic;
 using CustomEventBus;
 using CustomEventBus.Signals;
 using ObjectPool;
+using Random = System.Random;
 
 public class EnemySpawner : MonoBehaviour, IService {
+    private IEnumerator getEnemy;
     private EventBus _eventBus;
-    private int enemiesCount = 0;
+    private Random rand;
     private List<IEnemySpawn> _enemySpawns;
     private Pool<Enemy> pool;
     [SerializeField] private int maxNumOfEnemies;
     [SerializeField] private int _spawnTime;
-    [SerializeField] private List<EnemyObject> _enemies;
+    private List<EnemyData> _enemies;
+
     public void Init()
     {
+        getEnemy = GetEnemy();
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<ReleaseEnemySignal>(OnReleaseEnemy);
         _eventBus.Subscribe<GameStartSignal>(OnGameStart);
+        _eventBus.Subscribe<GameClearSignal>(OnDelete);
+        _eventBus.Subscribe<GetLevelData>(GetPool);
     }
-    void OnGameStart(GameStartSignal signal)
+
+    public void OnGameStart(GameStartSignal signal)
     {
+        rand = new Random();
         _enemySpawns = new List<IEnemySpawn>();
         _eventBus.Invoke(new RegisterEnemySpawnSignal());
-        pool = new Pool<Enemy>(_enemies.ToDictionary(x=>x.prefab, x=>x.count));
-        StartCoroutine(GetEnemy());
+        _eventBus.Invoke(new RegisterEnemySpawnSignal());
+        StartCoroutine(getEnemy);
     }
-    void Update()
-    {
-        while (enemiesCount < maxNumOfEnemies)
-        {
-            StartCoroutine(GetEnemy());
-        }
-    }
-    public void Register(IEnemySpawn spawn)
-    {
-        _enemySpawns.Add(spawn);
 
+    public void GetPool(GetLevelData signal)
+    {
+        _enemies = signal.LevelData.enemies;
+        pool = new Pool<Enemy>(_enemies.ToDictionary(x=>x.prefab, x=>x.count));
     }
+
+    public void Register(IEnemySpawn spawn) => _enemySpawns.Add(spawn);
+
     private void OnReleaseEnemy(ReleaseEnemySignal signal)
     {
+        _eventBus.Invoke(new DeadEnemySignal());
         pool.Release(signal.enemy);
-        enemiesCount--;
     }
-    IEnumerator GetEnemy()
+
+    private IEnumerator GetEnemy()
     {
-        yield return new WaitForSeconds(_spawnTime);
-        Enemy enemy = pool.Get();
-        enemiesCount++;
+        for(int i=0; i<_enemies.Select(x=>x.count).Sum(); i++)
+        {
+            yield return new WaitForSeconds(_spawnTime);
+            Enemy enemy = pool.Get();
+            var position = _enemySpawns.ElementAt(rand.Next(0,_enemySpawns.Count()-1)).transform.position;
+            enemy.transform.position = position;       
+        }
+    }
+    void OnDelete(GameClearSignal signal)
+    {
+        StopCoroutine(getEnemy);
+        _eventBus.Unsubscribe<ReleaseEnemySignal>(OnReleaseEnemy);
     }
 }

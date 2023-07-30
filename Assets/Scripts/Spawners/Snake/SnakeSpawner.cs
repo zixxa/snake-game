@@ -9,7 +9,7 @@ public class SnakeSpawner: MonoBehaviour, IService
     private GameObject snakeObj;
     [SerializeField] private Head _headPrefab;
     [SerializeField] private Head GetHeadPrefab() => Instantiate(_headPrefab, new Vector3(1,0,0), Quaternion.identity);
-    [SerializeField] private List<BodyObject> _bodyScriptableObjects;
+    [SerializeField] private List<BodyPrefabData> _bodyScriptableObjects;
     private ISnakeSpawn _snakeSpawn;
     public void Init()
     {
@@ -17,13 +17,14 @@ public class SnakeSpawner: MonoBehaviour, IService
         _eventBus.Subscribe<GameStartSignal>(OnGameStart);
         _eventBus.Subscribe<GetScriptableObjectBodiesSignal>(GetScriptableObjectsBodies);
     }
-    private void OnGameStart(GameStartSignal signal){
+    private void OnGameStart(GameStartSignal signal)
+    {
         GameObject snakeObj = new GameObject("Snake");
         _snake = snakeObj.AddComponent<Snake>();
         _snake.head = GetHeadPrefab();
         _snake.head.transform.SetParent(snakeObj.transform);
         _eventBus.Invoke(new AttachCameraSignal(_snake.head.transform));
-        _eventBus.Invoke(new RegisterSnakeSpawn());
+        _eventBus.Invoke(new RegisterSnakeSpawnSignal());
     }
     public void Register(ISnakeSpawn spawn)
     {

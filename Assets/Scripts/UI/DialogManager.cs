@@ -13,9 +13,8 @@ namespace UI
         private static readonly Dictionary<Type, string> PrefabsDictionary = new Dictionary<Type, string>()
         {
             {typeof(LoseDialog),"LoseDialog"},
-            //{typeof(YouWinDialog),"YouWinDialog"},
-            //{typeof(LoadingDialog),"LoadingDialog"},
-            
+            {typeof(WinDialog),"WinDialog"},
+            {typeof(LoadingDialog),"LoadingDialog"},
             {typeof(MenuDialog),"Menu"},
         };
 

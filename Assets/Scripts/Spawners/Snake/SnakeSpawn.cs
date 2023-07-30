@@ -10,15 +10,15 @@ public class SnakeSpawn : MonoBehaviour, IService, ISnakeSpawn{
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _snakeSpawner = ServiceLocator.Current.Get<SnakeSpawner>();
-        _eventBus.Subscribe<RegisterSnakeSpawn>(OnInit);
-        _eventBus.Subscribe<GameClearSignal>(Delete);
+        _eventBus.Subscribe<RegisterSnakeSpawnSignal>(OnInit);
+        _eventBus.Subscribe<GameClearSignal>(OnUnsubscribe);
     }
-    void OnInit(RegisterSnakeSpawn signal)
+    void OnInit(RegisterSnakeSpawnSignal signal)
     {
         _snakeSpawner.Register(this);
     }
-    void Delete(GameClearSignal signal)
+    void OnUnsubscribe(GameClearSignal signal)
     {
-        _eventBus.Unsubscribe<RegisterSnakeSpawn>(OnInit);
+        _eventBus.Unsubscribe<RegisterSnakeSpawnSignal>(OnInit);
     }
 }

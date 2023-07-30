@@ -13,8 +13,9 @@ public class PointSpawner: MonoBehaviour, IService
     private List<IPointSpawn> _pointSpawns;
     private EventBus _eventBus;
     [SerializeField] private int _spawnTime;
-    [SerializeField] private List<PointObject> _points;
+    [SerializeField] private List<PointPrefabData> _points;
     private Queue<Vector3> _freePositions;
+
     public void Init()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
@@ -22,6 +23,7 @@ public class PointSpawner: MonoBehaviour, IService
         _eventBus.Subscribe<GetScriptableObjectPointsSignal>(GetScriptableObjectsPoints);
         _eventBus.Subscribe<GameStartSignal>(OnGameStart);
     }
+
     private void OnGameStart(GameStartSignal signal)
     {
         _pointSpawns = new List<IPointSpawn>();
@@ -32,37 +34,40 @@ public class PointSpawner: MonoBehaviour, IService
         foreach (var pointSpawn in _pointSpawns){
             if (pointSpawn!=null)
             {
-                var point = pool.RandomGet();      
+                var point = pool.Get();      
                 point.transform.position = pointSpawn.transform.position;
             }
         }
     }
-    public void Register(IPointSpawn spawn)
-    {
-        _pointSpawns.Add(spawn);
-    }
-    private void GetScriptableObjectsPoints(GetScriptableObjectPointsSignal signal)
-    {
-        _eventBus.Invoke(new FillPointsSignal(_points));
-    }
+    public void Register(IPointSpawn spawn) => _pointSpawns.Add(spawn);
+
+    private void GetScriptableObjectsPoints(GetScriptableObjectPointsSignal signal) => _eventBus.Invoke(new FillPointsSignal(_points));
+
     private void OnReleasePoint(ReleasePointSignal signal)
     {
         _freePositions.Enqueue(signal.point.transform.position);
         pool.Release(signal.point);
         StartCoroutine(GetPoint());
     }
-    IEnumerator GetPoint()
+
+    private IEnumerator GetPoint()
     {
         yield return new WaitForSeconds(_spawnTime);
-        Point point = pool.Get();
-        if (_freePositions!=null)
+        if (_freePositions.Count()>0)
         {
+            Point point = pool.Get();
             point.transform.position = _freePositions.Dequeue();
         }
     }
-    private void OnDestroy() {
+
+    private void OnDelete(GameClearSignal signal) {
+        StopAllCoroutines();
         _eventBus.Unsubscribe<ReleasePointSignal>(OnReleasePoint);
         _eventBus.Unsubscribe<GetScriptableObjectPointsSignal>(GetScriptableObjectsPoints);
+    }
+
+    private void OnDestroy() {
         _eventBus.Unsubscribe<GameStartSignal>(OnGameStart);
+        _eventBus.Unsubscribe<GameClearSignal>(OnDelete);
     }
 }

@@ -12,8 +12,8 @@ public class Snake : MonoBehaviour, IService
     public Head head;
     public BodyLinker bodyLinker; 
     private Body bodyPrefab;
-    public List<Body> body = new List<Body>();
-    private List<CombinationObject> combinations;
+    public List<Body> body;
+    private List<CombinationData> combinations;
     Segment GetLastSegment() => body.Count()>0 ? body.Last() : head;
     private Body GetBodyPrefab()
     {
@@ -24,6 +24,7 @@ public class Snake : MonoBehaviour, IService
 
     void Start() {
         bodyLinker = new BodyLinker();
+        body = new List<Body>();
         _eventBus = ServiceLocator.Current.Get<EventBus>();
 
         _eventBus.Subscribe<FillPointsSignal>(bodyLinker.OnFillPoints);
@@ -33,7 +34,7 @@ public class Snake : MonoBehaviour, IService
         _eventBus.Subscribe<TouchPointSignal>(OnTouchPoint);
         _eventBus.Subscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
         _eventBus.Subscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
-        _eventBus.Subscribe<GameClearSignal>(Delete);
+        _eventBus.Subscribe<GameClearSignal>(OnDelete);
 
         _eventBus.Invoke(new GetScriptableObjectPointsSignal());        
         _eventBus.Invoke(new GetScriptableObjectBodiesSignal());        
@@ -87,7 +88,7 @@ public class Snake : MonoBehaviour, IService
     }
     public void OnCheckCombination(CheckCombinationSignal signal)
     {
-        foreach (CombinationObject combination in combinations)
+        foreach (CombinationData combination in combinations)
         {
         int coincidence=0;
             for (int i=0; i<combination.elements.Count(); i++)
@@ -105,7 +106,7 @@ public class Snake : MonoBehaviour, IService
             }
         }
     }
-    private void CombinationToResult(CombinationObject combination)
+    private void CombinationToResult(CombinationData combination)
     {
         for (int i=0; i<combination.elements.Count(); i++)
         {
@@ -119,24 +120,27 @@ public class Snake : MonoBehaviour, IService
     public void OnFillCombinations(FillCombinationsSignal signal){
         combinations = signal.combinationsObjects;
     }
-    public void Delete(GameClearSignal signal)
+    public void OnDelete(GameClearSignal signal)
     {
         Destroy(gameObject);
     }
-    void OnDestroy()
-    {
+    private void OnDestroy() {
+        _eventBus.Unsubscribe<FillPointsSignal>(bodyLinker.OnFillPoints);
+        _eventBus.Unsubscribe<FillBodiesSignal>(bodyLinker.OnFillBodies);
         _eventBus.Unsubscribe<FillCombinationsSignal>(OnFillCombinations);
         _eventBus.Unsubscribe<CheckCombinationSignal>(OnCheckCombination);
         _eventBus.Unsubscribe<TouchPointSignal>(OnTouchPoint);
         _eventBus.Unsubscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
+        _eventBus.Unsubscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
+        _eventBus.Unsubscribe<GameClearSignal>(OnDelete);
     }
 }
 
 public class BodyLinker
 {
     private EventBus _eventBus;
-    private List<PointObject> pointObjects;
-    private List<BodyObject> bodyObjects;
+    private List<PointPrefabData> pointObjects;
+    private List<BodyPrefabData> bodyObjects;
     public Dictionary<string,Body> linksByBodyAndPoints = new Dictionary<string, Body>();  
     public Body GetBodyByPoint(Point point) => linksByBodyAndPoints[point.color.code];
     public void OnFillPoints(FillPointsSignal signal)

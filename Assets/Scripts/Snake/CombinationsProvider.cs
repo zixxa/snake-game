@@ -4,7 +4,7 @@ using CustomEventBus;
 using CustomEventBus.Signals;
 public class CombinationsProvider : MonoBehaviour {
     private EventBus _eventBus;
-    [SerializeField] private List<CombinationObject> combinations;
+    [SerializeField] private List<CombinationData> combinations;
     public void Init()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();

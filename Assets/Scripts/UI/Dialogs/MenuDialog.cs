@@ -6,11 +6,7 @@ public class MenuDialog : Dialog{
     [SerializeField] private Button _playButton;
     protected void Awake()
     {
-        base.Awake();
         _playButton.onClick.AddListener(OnPlayButtonClick);
     }
-    private void OnPlayButtonClick()
-    {
-        SceneManager.LoadScene(ConstantValues.MAIN_SCENE_NAME);
-    }
+    private void OnPlayButtonClick() => SceneManager.LoadScene(ConstantValues.MAIN_SCENE_NAME);
 }

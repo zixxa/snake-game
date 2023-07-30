@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 namespace CustomEventBus.Signals{
 public class FillPointsSignal{
-    public List<PointObject> pointObjects;
-    public FillPointsSignal(List<PointObject> PointObjects){
+    public List<PointPrefabData> pointObjects;
+    public FillPointsSignal(List<PointPrefabData> PointObjects){
         pointObjects = PointObjects;
     }
 }

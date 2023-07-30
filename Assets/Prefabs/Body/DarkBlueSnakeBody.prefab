@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2753345498738227577}
   - component: {fileID: 3569841121193847419}
+  - component: {fileID: 6340452430717714196}
   m_Layer: 0
   m_Name: DarkBlueSnakeBody
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1741466471163381067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6612660079891432823}
@@ -47,6 +48,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {fileID: 11400000, guid: 13efdab7ec1d899d6b313f337205c910, type: 2}
   transform: {fileID: 6612660079891432823}
+--- !u!135 &6340452430717714196
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741466471163381067}
+  m_Material: {fileID: 13400000, guid: f10c979a93d5e852da5d715de3fb10a6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1799252097806005655
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +72,6 @@ GameObject:
   - component: {fileID: 6612660079891432823}
   - component: {fileID: 8333559574485579113}
   - component: {fileID: 6622240114860680250}
-  - component: {fileID: 1908879139022054061}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -131,16 +144,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1908879139022054061
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799252097806005655}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

@@ -28,18 +28,6 @@ namespace ObjectPool
             }
         }
 
-        public T RandomGet(){
-            Random rand = new Random();
-            var objects = _objects.Where(x => !x.isActiveAndEnabled).ToList();
-            var obj = objects.ElementAt(rand.Next(0,objects.Count()));
-
-            if (obj == null)
-                obj = Create();
-
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-
         public T Get()
             {
                 var obj = _objects.FirstOrDefault(x => !x.isActiveAndEnabled);

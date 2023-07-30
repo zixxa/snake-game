@@ -4,13 +4,11 @@ using CustomEventBus.Signals;
 public class Segment : MonoBehaviour, IService
 {
     protected EventBus _eventBus;
-    public ColorObject color;
+    public ColorData color;
     public Transform transform;
     void Awake(){
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         gameObject.AddComponent<Rigidbody>();
-        GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;     
-        GetComponent<Rigidbody>().collisionDetectionMode =  CollisionDetectionMode.Continuous;
     }
     void OnTriggerEnter(Collider trigger)
     {

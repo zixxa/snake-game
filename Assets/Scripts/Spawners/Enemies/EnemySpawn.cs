@@ -12,13 +12,13 @@ public class EnemySpawn : MonoBehaviour, IService, IEnemySpawn{
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         _enemySpawner = ServiceLocator.Current.Get<EnemySpawner>();
         _eventBus.Subscribe<RegisterEnemySpawnSignal>(OnInit);
-        _eventBus.Subscribe<GameClearSignal>(Delete);
+        _eventBus.Subscribe<GameClearSignal>(OnUnsubscribe);
     }
     void OnInit(RegisterEnemySpawnSignal signal)
     {
         _enemySpawner.Register(this);
     }
-    void Delete(GameClearSignal signal)
+    void OnUnsubscribe(GameClearSignal signal)
     {
         _eventBus.Unsubscribe<RegisterEnemySpawnSignal>(OnInit);
     }
