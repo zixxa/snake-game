@@ -8,7 +8,6 @@ using CustomEventBus.Signals;
 public class HUD: MonoBehaviour, IService
 {
     private EventBus _eventBus;
-    [SerializeField] private Text _score;
     [SerializeField] private Text _time;
     [SerializeField] private SurvivingTimer timer;
     private int _scoreCount = 0;

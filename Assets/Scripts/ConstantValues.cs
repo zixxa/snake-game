@@ -3,4 +3,5 @@ public static class ConstantValues {
     public static readonly string MAIN_SCENE_NAME = "MainScene";
     public static readonly string MENU_SCENE_NAME = "Menu";
     public static readonly string CURRENT_LEVEL_NAME = "current_level_";
+    public static readonly string SELECTED_SNAKE_HEAD = "current_snake_head_";
 }

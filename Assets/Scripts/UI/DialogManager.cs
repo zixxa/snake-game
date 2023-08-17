@@ -16,6 +16,7 @@ namespace UI
             {typeof(WinDialog),"WinDialog"},
             {typeof(LoadingDialog),"LoadingDialog"},
             {typeof(MenuDialog),"Menu"},
+            {typeof(CustomizationDialog),"CustomizationDialog"},
         };
 
         public static T ShowDialog<T>() where T : Dialog

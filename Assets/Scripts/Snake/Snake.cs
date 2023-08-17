@@ -1,37 +1,32 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using CustomEventBus;
 using CustomEventBus.Signals;
 using UnityEngine;
 
-public class Snake : MonoBehaviour, IService
+public class Snake : MonoBehaviour, IService, IPauseHandler
 {
     private EventBus _eventBus;
     private SnakeDataProvider _snakeDataProvider;
     public Head head;
-    public BodyLinker bodyLinker; 
     private Body bodyPrefab;
-    public List<Body> body;
+    public BodyLinker bodyLinker; 
+    public List<Body> bodies;
     private List<CombinationData> combinations;
-    Segment GetLastSegment() => body.Count()>0 ? body.Last() : head;
-    private Body GetBodyPrefab()
-    {
-        var tailSegment = GetLastSegment();
-        Vector3 tail = tailSegment.transform.position - (tailSegment.transform.forward * tailSegment.transform.localScale.z * 1.2f);
-        return Instantiate(bodyPrefab, tail, tailSegment.transform.rotation);
-    }
-
+    private bool IsPaused;
+    Segment GetLastSegment() => bodies.Count()>0 ? bodies.Last() : head;
+    
     void Start() {
         bodyLinker = new BodyLinker();
-        body = new List<Body>();
+        bodies = new List<Body>();
         _eventBus = ServiceLocator.Current.Get<EventBus>();
-
+        
         _eventBus.Subscribe<FillPointsSignal>(bodyLinker.OnFillPoints);
         _eventBus.Subscribe<FillBodiesSignal>(bodyLinker.OnFillBodies);
         _eventBus.Subscribe<FillCombinationsSignal>(OnFillCombinations);
         _eventBus.Subscribe<CheckCombinationSignal>(OnCheckCombination);
         _eventBus.Subscribe<TouchPointSignal>(OnTouchPoint);
+        _eventBus.Subscribe<DeleteBodySignal>(OnDeleteBody);
         _eventBus.Subscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
         _eventBus.Subscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
         _eventBus.Subscribe<GameClearSignal>(OnDelete);
@@ -51,10 +46,14 @@ public class Snake : MonoBehaviour, IService
         head.GetComponent<Rigidbody>().freezeRotation = true;
     }
 
-    void AddHingeJoint(Segment spawnedSegment)
+    private void OnDeleteBody(DeleteBodySignal signal)
     {
-        var hingeJoint = GetLastSegment().gameObject.AddComponent<HingeJoint>();
-        hingeJoint.connectedBody = spawnedSegment.GetComponent<Rigidbody>();
+        for (int i = signal.body.id+1; i < bodies.Count(); i++)
+        {
+            //bodies[i].transform = bodies[i - 1].transform;
+            if (signal.body == bodies[i])
+                Debug.Log("AAA");
+        }
     }
     void AddSpringJoint(Segment spawnedSegment)
     {
@@ -72,12 +71,18 @@ public class Snake : MonoBehaviour, IService
         AddSpringJoint(spawnedSegment);
         spawnedSegment.GetComponent<Rigidbody>().mass = mass;
         spawnedSegment.GetComponent<Rigidbody>().drag = drag;
-        spawnedSegment.transform.parent.SetParent(gameObject.transform);
+        spawnedSegment.transform.SetParent(gameObject.transform);
         spawnedSegment.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        body.Add(spawnedSegment);
+        bodies.Add(spawnedSegment);
 
-        if (body.Count() >= ConstantValues.MIN_COMBINATION_COUNT)
+        if (bodies.Count() >= ConstantValues.MIN_COMBINATION_COUNT)
             _eventBus.Invoke(new CheckCombinationSignal());
+    }
+    private Body GetBodyPrefab()
+    {
+        var tailSegment = GetLastSegment();
+        Vector3 tail = tailSegment.transform.position - (tailSegment.transform.forward * tailSegment.transform.localScale.z * 1.2f);
+        return Instantiate(bodyPrefab, tail, tailSegment.transform.rotation);
     }
     public void OnTouchPoint(TouchPointSignal signal){
         bodyPrefab = bodyLinker.GetBodyByPoint(signal.point);
@@ -90,11 +95,10 @@ public class Snake : MonoBehaviour, IService
     {
         foreach (CombinationData combination in combinations)
         {
-        int coincidence=0;
+            int coincidence = 0;
             for (int i=0; i<combination.elements.Count(); i++)
             {
-
-                if (body[body.Count() - i - 1].color == combination.elements[i].color)
+                if (bodies[bodies.Count() - i - 1].color == combination.elements[i].color)
                 {
                     coincidence++;                    
                 }
@@ -110,8 +114,8 @@ public class Snake : MonoBehaviour, IService
     {
         for (int i=0; i<combination.elements.Count(); i++)
         {
-            Destroy(body.Last().gameObject);
-            body.RemoveAt(body.Count() - 1);
+            Destroy(bodies.Last().gameObject);
+            bodies.RemoveAt(bodies.Count() - 1);
         }
         bodyPrefab = combination.resultBody.prefab;
         AddBodySegment(_snakeDataProvider.body.mass, _snakeDataProvider.body.drag);
@@ -134,30 +138,10 @@ public class Snake : MonoBehaviour, IService
         _eventBus.Unsubscribe<GetSnakeDataProviderSignal>(OnPostSnakeDataProvider);
         _eventBus.Unsubscribe<GameClearSignal>(OnDelete);
     }
-}
-
-public class BodyLinker
-{
-    private EventBus _eventBus;
-    private List<PointPrefabData> pointObjects;
-    private List<BodyPrefabData> bodyObjects;
-    public Dictionary<string,Body> linksByBodyAndPoints = new Dictionary<string, Body>();  
-    public Body GetBodyByPoint(Point point) => linksByBodyAndPoints[point.color.code];
-    public void OnFillPoints(FillPointsSignal signal)
+    void IPauseHandler.SetPaused(bool isPaused) => IsPaused = isPaused;
+    void Update()
     {
-        pointObjects = signal.pointObjects;
-    }
-    public void OnFillBodies(FillBodiesSignal signal)
-    {
-        bodyObjects = signal.bodyObjects;
-    }
-    public void OnInit()
-    {
-        linksByBodyAndPoints = Enumerable.Range(0,pointObjects.Count()
-            ).ToDictionary(
-                x => pointObjects[x].color.code, 
-                x => bodyObjects.Where(i => i.color == pointObjects[x].color).Last().prefab
-            );
-        
+        if (IsPaused)
+            return;
     }
 }

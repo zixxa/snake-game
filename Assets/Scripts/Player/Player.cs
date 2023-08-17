@@ -7,7 +7,9 @@ public class Player: MonoBehaviour, IService
     private MovementData movement;
     private EventBus _eventBus;
     private int bodyCount;
-    public Segment player{get;private set;}
+    
+    private bool IsPaused => ServiceLocator.Current.Get<PauseController>().IsPaused;
+    public Segment player {get;private set;}
     void Start()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
@@ -28,6 +30,9 @@ public class Player: MonoBehaviour, IService
     void FixedUpdate(){
         var verticalInput = Input.GetAxisRaw("Vertical");
         var horizontalInput = Input.GetAxisRaw("Horizontal");
+        
+        if (IsPaused)
+            return;
 
         player.GetComponent<Rigidbody>().drag = (verticalInput == 0) ? movement.DragOnStop: movement.DragOnMove;
 

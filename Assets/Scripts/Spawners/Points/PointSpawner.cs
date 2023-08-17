@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using CustomEventBus;
 using CustomEventBus.Signals;
 using ObjectPool;
-public class PointSpawner: MonoBehaviour, IService
+public class PointSpawner: MonoBehaviour, IService, IPauseHandler
 {
     private readonly int spawnPointNum;
     private Pool<Point> pool;
@@ -15,6 +15,7 @@ public class PointSpawner: MonoBehaviour, IService
     [SerializeField] private int _spawnTime;
     [SerializeField] private List<PointPrefabData> _points;
     private Queue<Vector3> _freePositions;
+    private bool isPaused;
 
     public void Init()
     {
@@ -69,5 +70,13 @@ public class PointSpawner: MonoBehaviour, IService
     private void OnDestroy() {
         _eventBus.Unsubscribe<GameStartSignal>(OnGameStart);
         _eventBus.Unsubscribe<GameClearSignal>(OnDelete);
+    }
+
+    void IPauseHandler.SetPaused(bool IsPaused) => isPaused = IsPaused;
+
+    private void Update()
+    {
+        if (isPaused)
+            return;
     }
 }

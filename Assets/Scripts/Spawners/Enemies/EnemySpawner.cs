@@ -8,7 +8,7 @@ using CustomEventBus.Signals;
 using ObjectPool;
 using Random = System.Random;
 
-public class EnemySpawner : MonoBehaviour, IService {
+public class EnemySpawner : MonoBehaviour, IService, IPauseHandler {
     private IEnumerator getEnemy;
     private EventBus _eventBus;
     private Random rand;
@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour, IService {
     [SerializeField] private int maxNumOfEnemies;
     [SerializeField] private int _spawnTime;
     private List<EnemyData> _enemies;
+    private bool isPaused;
 
     public void Init()
     {
@@ -65,5 +66,13 @@ public class EnemySpawner : MonoBehaviour, IService {
     {
         StopCoroutine(getEnemy);
         _eventBus.Unsubscribe<ReleaseEnemySignal>(OnReleaseEnemy);
+    }
+    
+    void IPauseHandler.SetPaused(bool IsPaused) => isPaused = IsPaused;
+
+    private void Update()
+    {
+        if (isPaused)
+            return;
     }
 }

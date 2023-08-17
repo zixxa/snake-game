@@ -1,6 +1,5 @@
-using UnityEngine;
-using CustomEventBus;
-using CustomEventBus.Signals;
 public class Body: Segment
 {
+    public readonly int id;
+    public ColorData color;
 }

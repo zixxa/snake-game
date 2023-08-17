@@ -1,8 +1,12 @@
 using UnityEngine;
 using CustomEventBus;
 using CustomEventBus.Signals;
+public interface ISnakeSpawn
+{
+    public Transform transform {get;}
+}
 
-public class SnakeSpawn : MonoBehaviour, IService, ISnakeSpawn{
+public class SnakeSpawn : MonoBehaviour, IService ,ISnakeSpawn{
     private EventBus _eventBus;
     private SnakeSpawner _snakeSpawner;
     public Transform transform => gameObject.transform;
@@ -15,7 +19,7 @@ public class SnakeSpawn : MonoBehaviour, IService, ISnakeSpawn{
     }
     void OnInit(RegisterSnakeSpawnSignal signal)
     {
-        _snakeSpawner.Register(this);
+        _snakeSpawner.RegisterSpawn(this);
     }
     void OnUnsubscribe(GameClearSignal signal)
     {

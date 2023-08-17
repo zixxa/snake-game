@@ -6,20 +6,20 @@ using CustomEventBus.Signals;
 public class Enemy : MonoBehaviour, IService{
 
     [SerializeField] private ColorData color;
-    private Head target;
+    private Head _target;
     private NavMeshAgent agent;
     private EventBus _eventBus;
     private void Awake()
     {
-        _eventBus = ServiceLocator.Current.Get<EventBus>();
         agent = gameObject.AddComponent<NavMeshAgent>();
         agent.speed = 40;
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
         _eventBus.Subscribe<GetHeadForEnemiesSignal>(OnGetHeadForEnemies);
         _eventBus.Subscribe<GameClearSignal>(OnDelete);
     }
     private void Update() 
     {
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(_target.transform.position);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour, IService{
     }
     private void OnGetHeadForEnemies(GetHeadForEnemiesSignal signal)
     {
-        target = signal.head;
+        _target = signal.head;
     }
     private void OnDelete(GameClearSignal signal)
     {

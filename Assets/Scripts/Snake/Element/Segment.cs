@@ -4,8 +4,6 @@ using CustomEventBus.Signals;
 public class Segment : MonoBehaviour, IService
 {
     protected EventBus _eventBus;
-    public ColorData color;
-    public Transform transform;
     void Awake(){
         _eventBus = ServiceLocator.Current.Get<EventBus>();
         gameObject.AddComponent<Rigidbody>();

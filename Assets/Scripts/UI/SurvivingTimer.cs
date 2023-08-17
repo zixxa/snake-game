@@ -5,7 +5,7 @@ using CustomEventBus.Signals;
 
 public class SurvivingTimer: MonoBehaviour, IService
 {
-    [SerializeField] private int _countdown;
+    private int _countdown;
     private string _time;
     private EventBus _eventBus;
     private bool isStopTimer;
@@ -13,12 +13,19 @@ public class SurvivingTimer: MonoBehaviour, IService
     public void Init()
     {
         _eventBus = ServiceLocator.Current.Get<EventBus>();
+        _eventBus.Subscribe<GetLevelData>(SetTimer);
         _eventBus.Subscribe<StartTimerSignal>(Run);
     }
 
     private void Run(StartTimerSignal signal)
     {
+        StopAllCoroutines();
         StartCoroutine(Timer(_countdown));
+    }
+
+    private void SetTimer(GetLevelData signal)
+    {
+        _countdown = signal.LevelData.countdown;
     }
     
     private IEnumerator Timer (int timeInSec)
